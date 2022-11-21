@@ -7,11 +7,10 @@ import schedule from "./schedule.json";
 const Day = (day) => {
   return (
     <div>
-      {/* <h2>{day.day}</h2> */}
       <ul>
         {day.matches.map((match) => (
           <li key={match.ts}>
-            {formatTime(match.ts)} | {match.match}
+            {formatTime(match.ts)} | {capitalize(match.match)}
           </li>
         ))}
       </ul>
@@ -19,7 +18,14 @@ const Day = (day) => {
   );
 };
 
-// format date, e.g. 2021-06-12 00:00:00 -> "12 June, Tuesday"
+// capitalize every word in string
+const capitalize = (s) => {
+  return s
+    .split(" ")
+    .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+};
+
 const formatDate = (date) => {
   const d = new Date(date);
   const options1 = { weekday: "long" };
@@ -35,20 +41,6 @@ const formatTime = (date) => {
   return d.toLocaleTimeString("en-GB", options);
 };
 
-const ScrollDemo = () => {
-  const myRef = useRef(null);
-
-  const executeScroll = () => myRef.current.scrollIntoView();
-  // run this function from an event handler or an effect to execute scroll
-
-  return (
-    <>
-      <div ref={myRef}>Element to scroll to</div>
-      <button onClick={executeScroll}> Click to scroll </button>
-    </>
-  );
-};
-
 // find index of date in schedule which is closest to current date from below
 const findClosestDate = (schedule) => {
   const now = new Date();
@@ -59,13 +51,11 @@ const findClosestDate = (schedule) => {
   return dates[dates.indexOf(closest) - 1];
 };
 
-
 const HeaderDate = (day) => {
   const closest = findClosestDate(schedule).toLocaleDateString();
   const current = new Date(day.date).toLocaleDateString();
   if (closest === current) {
     return (
-      // draw horizontal line
       <div>
         <hr />
         <h2>{formatDate(day.date)}</h2>
@@ -82,20 +72,11 @@ const HeaderDate = (day) => {
 };
 
 const App = () => {
-  const myRef = useRef("scroll");
-  console.log("DATEE", findClosestDate(schedule));
-  const executeScroll = () => myRef.current.scrollIntoView();
-  // useEffect(() => {
-  //   myRef.current.scrollIntoView();
-  // }, []);
-
   return (
     <div>
       <div>
         {schedule.map((day) => (
-          <>
-            <HeaderDate {...day} />
-          </>
+          <HeaderDate {...day} />
         ))}
       </div>
     </div>
