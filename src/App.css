@@ -1,6 +1,19 @@
-.App {
-  text-align: center;
+.Box {
+  /* box-border h-100% w-100% p-4 border-4 rounded-[30px] flex justify-between m-10 items-center flex-col shadow-[0_0px_30px_-5px_rgba(0,0,0,0.3)] shadow-cyan-50 */
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  border-width: 0.25rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.25rem;
+  align-items: center;
+  flex-direction: column;
 }
+
+
 
 .App-logo {
   height: 40vmin;
