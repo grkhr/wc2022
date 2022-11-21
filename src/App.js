@@ -10,7 +10,7 @@ const Day = (day) => {
       <ul>
         {day.matches.map((match) => (
           <li key={match.ts}>
-            {formatTime(match.ts)} | {capitalize(match.match)}
+            {formatTime(match.ts)}{" "}{capitalize(match.match)}
           </li>
         ))}
       </ul>
